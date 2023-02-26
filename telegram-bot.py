@@ -36,15 +36,15 @@ def get_codex(message):
     response = openai.Completion.create(
         engine="curie:ft-benita-2023-02-21-23-50-26",
         prompt='"""\n{}\n"""'.format(message.text),
-        temperature=0.6, # controls randomness, 0 = repetitive
-        max_tokens=80,
+        temperature=0.5, # controls randomness, 0 = repetitive
+        max_tokens=300,
         top_p=1,
         frequency_penalty=0.5, # decreases model's likelihood to repeat the same line verbatim
         presence_penalty=0.5, # increases model's likelihood to talk about new topics
-        stop=["\n"])
+        stop=['.'])
 
-    #bot.send_message(channel_id,
-    bot.send_message(message.chat.id,
+    bot.send_message(channel_id,
+    #bot.send_message(message.chat.id,
     f'```python\n{response["choices"][0]["text"]}\n```',
     parse_mode="Markdown")
 
